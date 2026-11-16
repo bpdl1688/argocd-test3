@@ -1,0 +1,157 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"rbac-demo-dev","namespace":"argocd"},"spec":{"destination":{"namespace":"rbac-demo-dev","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"overlays/dev","repoURL":"https://github.com/bpdl1688/argocd-test2.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2026-11-16T16:10:10Z"
+  generation: 23
+  name: rbac-demo-dev
+  namespace: argocd
+  resourceVersion: "5167"
+  uid: ddc6a6cb-b793-479a-ae9a-705aab642c50
+spec:
+  destination:
+    namespace: rbac-demo-dev
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: overlays/dev
+    repoURL: https://github.com/bpdl1688/argocd-test3.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-11-16T16:11:41Z"
+    status: Healthy
+  history:
+  - deployStartedAt: "2026-11-16T16:11:29Z"
+    deployedAt: "2026-11-16T16:11:29Z"
+    id: 0
+    initiatedBy:
+      automated: true
+    revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+    source:
+      path: overlays/dev
+      repoURL: https://github.com/bpdl1688/argocd-test3.git
+      targetRevision: main
+  operationState:
+    finishedAt: "2026-11-16T16:11:30Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        autoHealAttemptsCount: 1
+        prune: true
+        resources:
+        - kind: Service
+          name: dev-app
+        - group: apps
+          kind: Deployment
+          name: dev-app
+        revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+        source:
+          path: overlays/dev
+          repoURL: https://github.com/bpdl1688/argocd-test3.git
+          targetRevision: main
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2026-11-16T16:11:29Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/dev-app unchanged
+        name: dev-app
+        namespace: rbac-demo-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - nginx:1.24-alpine
+        kind: Deployment
+        message: deployment.apps/dev-app unchanged
+        name: dev-app
+        namespace: rbac-demo-dev
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+      source:
+        path: overlays/dev
+        repoURL: https://github.com/bpdl1688/argocd-test3.git
+        targetRevision: main
+  reconciledAt: "2026-11-16T16:25:34Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: ConfigMap
+    name: dev-app-config
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - kind: Namespace
+    name: rbac-demo-dev
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: dev-app-secret
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - kind: Service
+    name: dev-app
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - kind: ServiceAccount
+    name: dev-app-sa
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: dev-app
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: Role
+    name: dev-app-role
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    name: dev-app-rolebinding
+    namespace: rbac-demo-dev
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceType: Kustomize
+  summary:
+    images:
+    - nginx:1.24-alpine
+  sync:
+    comparedTo:
+      destination:
+        namespace: rbac-demo-dev
+        server: https://kubernetes.default.svc
+      source:
+        path: overlays/dev
+        repoURL: https://github.com/bpdl1688/argocd-test3.git
+        targetRevision: main
+    revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+    status: Synced

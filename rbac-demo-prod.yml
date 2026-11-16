@@ -1,0 +1,163 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"argoproj.io/v1alpha1","kind":"Application","metadata":{"annotations":{},"name":"rbac-demo-prod","namespace":"argocd"},"spec":{"destination":{"namespace":"rbac-demo-prod","server":"https://kubernetes.default.svc"},"project":"default","source":{"path":"overlays/prod","repoURL":"https://github.com/bpdl1688/argocd-test2.git","targetRevision":"main"},"syncPolicy":{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=true"]}}}
+  creationTimestamp: "2026-11-16T16:10:10Z"
+  generation: 71
+  name: rbac-demo-prod
+  namespace: argocd
+  resourceVersion: "5189"
+  uid: 40e5cd49-c94f-4bde-bb94-8a7217c02332
+spec:
+  destination:
+    namespace: rbac-demo-prod
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: overlays/prod
+    repoURL: https://github.com/bpdl1688/argocd-test3.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-11-16T16:11:28Z"
+    status: Healthy
+  history:
+  - deployStartedAt: "2026-11-16T16:10:10Z"
+    deployedAt: "2026-11-16T16:10:29Z"
+    id: 0
+    initiatedBy:
+      automated: true
+    revision: a7958a1d0c849c1d99fc5280a5f5206f51b2b351
+    source:
+      path: overlays/prod
+      repoURL: https://github.com/bpdl1688/argocd-test2.git
+      targetRevision: main
+  - deployStartedAt: "2026-11-16T16:11:01Z"
+    deployedAt: "2026-11-16T16:11:17Z"
+    id: 1
+    initiatedBy:
+      automated: true
+    revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+    source:
+      path: overlays/prod
+      repoURL: https://github.com/bpdl1688/argocd-test3.git
+      targetRevision: main
+  operationState:
+    finishedAt: "2026-11-16T16:11:25Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        autoHealAttemptsCount: 3
+        prune: true
+        resources:
+        - kind: Namespace
+          name: demo-prod
+        revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+        source:
+          path: overlays/prod
+          repoURL: https://github.com/bpdl1688/argocd-test3.git
+          targetRevision: main
+        syncOptions:
+        - CreateNamespace=true
+    phase: Succeeded
+    startedAt: "2026-11-16T16:11:25Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Succeeded
+        kind: Namespace
+        message: pruned
+        name: demo-prod
+        namespace: ""
+        status: Pruned
+        syncPhase: Sync
+        version: v1
+      revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+      source:
+        path: overlays/prod
+        repoURL: https://github.com/bpdl1688/argocd-test3.git
+        targetRevision: main
+  reconciledAt: "2026-11-16T16:26:15Z"
+  resourceHealthSource: appTree
+  resources:
+  - kind: ConfigMap
+    name: prod-app-config
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - kind: Namespace
+    name: rbac-demo-prod
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: prod-app-secret
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - kind: Service
+    name: prod-app
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - kind: ServiceAccount
+    name: prod-app-sa
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - group: apps
+    kind: Deployment
+    name: prod-app
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: prod-node-reader
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: prod-node-reader-binding
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: Role
+    name: prod-app-role
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: RoleBinding
+    name: prod-app-rolebinding
+    namespace: rbac-demo-prod
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceType: Kustomize
+  summary:
+    images:
+    - nginx:1.24
+  sync:
+    comparedTo:
+      destination:
+        namespace: rbac-demo-prod
+        server: https://kubernetes.default.svc
+      source:
+        path: overlays/prod
+        repoURL: https://github.com/bpdl1688/argocd-test3.git
+        targetRevision: main
+    revision: 5c668f07d6c5cd122be65e04728d8f130d680421
+    status: Synced
