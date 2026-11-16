@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - cluster-rbac.yaml
+
+namespace: rbac-demo-prod
+namePrefix: prod-
+
+replicas:
+  - name: app
+    count: 3
+
+labels:
+  - pairs:
+      environment: prod
+    includeSelectors: false
+
+patches:
+  - path: patch.yaml
+    target:
+      kind: Deployment
+      name: app
